@@ -86,6 +86,10 @@ bool Triangle::isFigure() const {
 
 }
 
+void Triangle::printFigureName() {
+	cout << "triangle" << endl;
+}
+
 Square::Square() {
     vertexsCount = 4;
     vertexs = NULL;
@@ -110,6 +114,11 @@ bool Square::isFigure() const {
     return ((side1 == side2) && (side2 == side3) && (side3 == side4)
             && (cosA == 0));
 }
+
+void Square::printFigureName() {
+    cout << "square" << endl;
+}
+
 
 Trapezoid::Trapezoid() {
     vertexsCount = 4;
@@ -141,6 +150,10 @@ bool Trapezoid::isFigure() const {
                                 && (vector2.x * vector4.y - vector2.y * vector4.x == 0)));
 }
 
+void Trapezoid::printFigureName() {
+    cout << "trapezoid" << endl;
+}
+
 Rhombus::Rhombus() {
     vertexsCount = 4;
     vertexs = NULL;
@@ -156,4 +169,8 @@ bool Rhombus::isFigure() const {
     double side4 = sqrt(pow(vertexs[1].x - vertexs[3].x, 2)
                         + pow(vertexs[1].y - vertexs[3].y, 2));
     return ((side1 == side2) && (side2 == side3) && (side3 == side4));
+}
+
+void Rhombus::printFigureName() {
+    cout << "rhombus" << endl;
 }

@@ -20,10 +20,16 @@ Trapezoid - (0,0) (5,-3) (5, 6) (0,6)
     bool isFigure_ = figure.setVertexs();
     if(isFigure_) {
         figure.print();
-
     }
     else {
         cout << "Вершины не подходят для создания фигуры." << endl;
     }
+	figure.printFigureName();
+	Triangle t;
+	t.printFigureName();
+	Square s;
+    s.printFigureName();
+	Rhombus r;
+    r.printFigureName();
     return 0;
 }

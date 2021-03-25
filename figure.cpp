@@ -3,7 +3,6 @@
 #include <cmath>
 
 #include "figure.h"
-#include "printFunctions.h"
 
 using namespace std;
 
@@ -44,27 +43,33 @@ void Figure::sortVertexs() {
 }
 
 void Figure::print() const {
-    int leftBorder = vertexs[0].x;
-    for (unsigned i = 0; i < vertexsCount; ++i) {
-        if (vertexs[i].x < leftBorder) {
-            leftBorder = vertexs[i].x;
+    int maxX = vertexs[0].x, minX = vertexs[0].x, maxY = vertexs[0].y, minY = vertexs[0].y;
+    for (int i = 0; i < vertexsCount; ++i) {
+        if (vertexs[i].x > maxX) {
+            maxX = vertexs[i].x;
+        }
+        if (vertexs[i].x < minX) {
+            minX = vertexs[i].x;
+        }
+        if (vertexs[i].y > maxY) {
+            maxY = vertexs[i].y;
+        }
+        if (vertexs[i].y < minY) {
+            minY = vertexs[i].y;
         }
     }
 
-    printSpaces(vertexs[0].x - leftBorder);
-    cout << '*';
-    for (unsigned i = 1; i < vertexsCount; ++i) {
-        if (vertexs[i].y == vertexs[i - 1].y) {
-            printSpaces(vertexs[i].x - vertexs[i - 1].x - 1);
-            cout << '*';
+    for (int i = maxY; i >= minY; --i) {
+        for (int j = minX; j <= maxX; ++j) {
+            if (belongsFigure(j, i)) {
+                cout << '*';
+            }
+            else {
+                cout << ' ';
+            }
         }
-        else {
-            printEnters(vertexs[i - 1].y - vertexs[i].y);
-            printSpaces(vertexs[i].x - leftBorder);
-            cout << '*';
-        }
+        cout << endl;
     }
-    cout << endl;
 }
 
 
@@ -86,13 +91,94 @@ bool Triangle::isFigure() const {
 
 }
 
+
 void Triangle::printFigureName() const {
 	cout << "triangle" << endl;
 }
 
-Square::Square() {
+bool Triangle::belongsFigure(int x, int y) const {
+    return (
+            (
+             ((x - vertexs[0].x) * (vertexs[1].y - vertexs[0].y) == (y - vertexs[0].y) * (vertexs[1].x - vertexs[0].x))
+            && (((vertexs[0].x <= x && x <= vertexs[1].x) && (vertexs[1].y <= y && y <= vertexs[0].y))
+                || ((vertexs[0].x <= x && x <= vertexs[1].x) && (vertexs[0].y <= y && y <= vertexs[1].y))
+                || ((vertexs[1].x <= x && x <= vertexs[0].x) && (vertexs[1].y <= y && y <= vertexs[0].y))
+                || ((vertexs[1].x <= x && x <= vertexs[0].x) && (vertexs[0].y <= y && y <= vertexs[1].y)))
+             )
+
+            ||
+
+            (
+             ((x - vertexs[0].x) * (vertexs[2].y - vertexs[0].y) == (y - vertexs[0].y) * (vertexs[2].x - vertexs[0].x))
+            && (((vertexs[0].x <= x && x <= vertexs[2].x) && (vertexs[2].y <= y && y <= vertexs[0].y))
+                || ((vertexs[0].x <= x && x <= vertexs[2].x) && (vertexs[0].y <= y && y <= vertexs[2].y))
+                || ((vertexs[2].x <= x && x <= vertexs[0].x) && (vertexs[0].y <= y && y <= vertexs[2].y))
+                || ((vertexs[2].x <= x && x <= vertexs[0].x) && (vertexs[2].y <= y && y <= vertexs[0].y)))
+             )
+
+            ||
+
+            (
+             ((x - vertexs[1].x) * (vertexs[2].y - vertexs[1].y) == (y - vertexs[1].y) * (vertexs[2].x - vertexs[1].x))
+            && (((vertexs[2].x <= x && x <= vertexs[1].x) && (vertexs[2].y <= y && y <= vertexs[1].y))
+                || ((vertexs[2].x <= x && x <= vertexs[1].x) && (vertexs[1].y <= y && y <= vertexs[2].y))
+                || ((vertexs[1].x <= x && x <= vertexs[2].x) && (vertexs[1].y <= y && y <= vertexs[2].y))
+                || ((vertexs[1].x <= x && x <= vertexs[2].x) && (vertexs[2].y <= y && y <= vertexs[1].y)))
+             )
+            );
+}
+
+
+Quadrangle::Quadrangle() {
     vertexsCount = 4;
     vertexs = NULL;
+}
+
+bool Quadrangle::belongsFigure(int x, int y) const {
+    return (
+            (
+             ((x - vertexs[0].x) * (vertexs[1].y - vertexs[0].y) == (y - vertexs[0].y) * (vertexs[1].x - vertexs[0].x))
+            && (((vertexs[0].x <= x && x <= vertexs[1].x) && (vertexs[1].y <= y && y <= vertexs[0].y))
+                || ((vertexs[0].x <= x && x <= vertexs[1].x) && (vertexs[0].y <= y && y <= vertexs[1].y))
+                || ((vertexs[1].x <= x && x <= vertexs[0].x) && (vertexs[1].y <= y && y <= vertexs[0].y))
+                || ((vertexs[1].x <= x && x <= vertexs[0].x) && (vertexs[0].y <= y && y <= vertexs[1].y)))
+             )
+
+            ||
+
+            (
+             ((x - vertexs[0].x) * (vertexs[2].y - vertexs[0].y) == (y - vertexs[0].y) * (vertexs[2].x - vertexs[0].x))
+            && (((vertexs[0].x <= x && x <= vertexs[2].x) && (vertexs[2].y <= y && y <= vertexs[0].y))
+                || ((vertexs[0].x <= x && x <= vertexs[2].x) && (vertexs[0].y <= y && y <= vertexs[2].y))
+                || ((vertexs[2].x <= x && x <= vertexs[0].x) && (vertexs[0].y <= y && y <= vertexs[2].y))
+                || ((vertexs[2].x <= x && x <= vertexs[0].x) && (vertexs[2].y <= y && y <= vertexs[0].y)))
+             )
+
+            ||
+
+            (
+             ((x - vertexs[1].x) * (vertexs[3].y - vertexs[1].y) == (y - vertexs[1].y) * (vertexs[3].x - vertexs[1].x))
+            && (((vertexs[3].x <= x && x <= vertexs[1].x) && (vertexs[3].y <= y && y <= vertexs[1].y))
+                || ((vertexs[3].x <= x && x <= vertexs[1].x) && (vertexs[1].y <= y && y <= vertexs[3].y))
+                || ((vertexs[1].x <= x && x <= vertexs[3].x) && (vertexs[1].y <= y && y <= vertexs[3].y))
+                || ((vertexs[1].x <= x && x <= vertexs[3].x) && (vertexs[3].y <= y && y <= vertexs[1].y)))
+             )
+
+            ||
+
+            (
+             ((x - vertexs[2].x) * (vertexs[3].y - vertexs[2].y) == (y - vertexs[2].y) * (vertexs[3].x - vertexs[2].x))
+            && (((vertexs[3].x <= x && x <= vertexs[2].x) && (vertexs[3].y <= y && y <= vertexs[2].y))
+                || ((vertexs[3].x <= x && x <= vertexs[2].x) && (vertexs[2].y <= y && y <= vertexs[3].y))
+                || ((vertexs[2].x <= x && x <= vertexs[3].x) && (vertexs[2].y <= y && y <= vertexs[3].y))
+                || ((vertexs[2].x <= x && x <= vertexs[3].x) && (vertexs[3].y <= y && y <= vertexs[2].y)))
+             )
+            );
+}
+
+
+void Square::printFigureName() const {
+    cout << "square" << endl;
 }
 
 bool Square::isFigure() const {
@@ -115,14 +201,8 @@ bool Square::isFigure() const {
             && (cosA == 0));
 }
 
-void Square::printFigureName() const {
-    cout << "square" << endl;
-}
-
-
-Trapezoid::Trapezoid() {
-    vertexsCount = 4;
-    vertexs = NULL;
+void Trapezoid::printFigureName() const {
+    cout << "trapezoid" << endl;
 }
 
 bool Trapezoid::isFigure() const {
@@ -150,13 +230,9 @@ bool Trapezoid::isFigure() const {
                                 && (vector2.x * vector4.y - vector2.y * vector4.x == 0)));
 }
 
-void Trapezoid::printFigureName() const {
-    cout << "trapezoid" << endl;
-}
 
-Rhombus::Rhombus() {
-    vertexsCount = 4;
-    vertexs = NULL;
+void Rhombus::printFigureName() const {
+    cout << "rhombus" << endl;
 }
 
 bool Rhombus::isFigure() const {
@@ -169,8 +245,4 @@ bool Rhombus::isFigure() const {
     double side4 = sqrt(pow(vertexs[1].x - vertexs[3].x, 2)
                         + pow(vertexs[1].y - vertexs[3].y, 2));
     return ((side1 == side2) && (side2 == side3) && (side3 == side4));
-}
-
-void Rhombus::printFigureName() const {
-    cout << "rhombus" << endl;
 }

@@ -2,8 +2,6 @@
 #include <iostream>
 #include <cstdbool>
 
-#include "printFunctions.h"
-
 using namespace std;
 
 typedef struct {
@@ -21,8 +19,9 @@ public:
     bool setVertexs();
     void sortVertexs();
     void print() const;
-    virtual bool isFigure() const = 0;
 	virtual void printFigureName() const = 0;
+	virtual bool isFigure() const = 0;
+	virtual bool belongsFigure(int, int) const = 0;
 
 protected:
     Vertex2D* vertexs;
@@ -32,30 +31,35 @@ protected:
 class Triangle : public Figure {
 public:
     Triangle();
-    bool isFigure() const;
 	void printFigureName() const override;
+	bool isFigure() const override;
+	bool belongsFigure(int, int) const override;
 };
 
 class Quadrangle : public Figure {
+public:
+    Quadrangle();
+    virtual ~Quadrangle() = default;
+    bool belongsFigure(int, int) const override;
 };
 
 class Square : public Quadrangle {
 public:
-    Square();
-    bool isFigure() const;
+    Square() = default;
 	void printFigureName() const override;
+	bool isFigure() const override;
 };
 
 class Trapezoid : public Quadrangle {
 public:
-    Trapezoid();
-    bool isFigure() const;
+    Trapezoid() = default;
 	void printFigureName() const override;
+	bool isFigure() const override;
 };
 
 class Rhombus : public Quadrangle {
 public:
-    Rhombus();
-    bool isFigure() const;
+    Rhombus() = default;
 	void printFigureName() const override;
+	bool isFigure() const override;
 };

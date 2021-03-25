@@ -22,7 +22,7 @@ public:
     void sortVertexs();
     void print() const;
     virtual bool isFigure() const = 0;
-	virtual void printFigureName() = 0;
+	virtual void printFigureName() const = 0;
 
 protected:
     Vertex2D* vertexs;
@@ -33,26 +33,26 @@ class Triangle : public Figure {
 public:
     Triangle();
     bool isFigure() const;
-	void printFigureName() override;
+	void printFigureName() const override;
 };
 
 class Square : public Figure {
 public:
     Square();
     bool isFigure() const;
-	void printFigureName() override;
+	void printFigureName() const override;
 };
 
 class Trapezoid : public Figure {
 public:
     Trapezoid();
     bool isFigure() const;
-	void printFigureName() override;
+	void printFigureName() const override;
 };
 
 class Rhombus : public Figure {
 public:
     Rhombus();
     bool isFigure() const;
-	void printFigureName() override;
+	void printFigureName() const override;
 };

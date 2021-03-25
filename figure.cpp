@@ -86,7 +86,7 @@ bool Triangle::isFigure() const {
 
 }
 
-void Triangle::printFigureName() {
+void Triangle::printFigureName() const {
 	cout << "triangle" << endl;
 }
 
@@ -115,7 +115,7 @@ bool Square::isFigure() const {
             && (cosA == 0));
 }
 
-void Square::printFigureName() {
+void Square::printFigureName() const {
     cout << "square" << endl;
 }
 
@@ -150,7 +150,7 @@ bool Trapezoid::isFigure() const {
                                 && (vector2.x * vector4.y - vector2.y * vector4.x == 0)));
 }
 
-void Trapezoid::printFigureName() {
+void Trapezoid::printFigureName() const {
     cout << "trapezoid" << endl;
 }
 
@@ -171,6 +171,6 @@ bool Rhombus::isFigure() const {
     return ((side1 == side2) && (side2 == side3) && (side3 == side4));
 }
 
-void Rhombus::printFigureName() {
+void Rhombus::printFigureName() const {
     cout << "rhombus" << endl;
 }

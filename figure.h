@@ -36,21 +36,24 @@ public:
 	void printFigureName() const override;
 };
 
-class Square : public Figure {
+class Quadrangle : public Figure {
+};
+
+class Square : public Quadrangle {
 public:
     Square();
     bool isFigure() const;
 	void printFigureName() const override;
 };
 
-class Trapezoid : public Figure {
+class Trapezoid : public Quadrangle {
 public:
     Trapezoid();
     bool isFigure() const;
 	void printFigureName() const override;
 };
 
-class Rhombus : public Figure {
+class Rhombus : public Quadrangle {
 public:
     Rhombus();
     bool isFigure() const;
